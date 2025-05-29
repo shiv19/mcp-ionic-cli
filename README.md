@@ -1,5 +1,7 @@
 # Ionic CLI MCP Server ⚡
 
+This project is a fork of the `@talzach/mcp-angular-cli` server, now adapted to provide Ionic CLI automation capabilities via the Model Context Protocol (MCP).
+
 A Model Context Protocol server that provides Ionic CLI automation capabilities. This server enables LLMs and agents to interact with Ionic projects, generate pages/components/services, add native platforms, build and serve apps, and manage Ionic projects via the Ionic CLI.
 
 ## Features
@@ -53,6 +55,7 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
 ## Example Tool Usage
 
 - **Create a new Ionic project:**
+
   ```json
   {
     "name": "my-ionic-app",
@@ -62,7 +65,9 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
     "directory": "/absolute/path/to/where/you/want/it"
   }
   ```
+
 - **Generate a page:**
+
   ```json
   {
     "type": "page",
@@ -70,21 +75,27 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
     "appRoot": "/absolute/path/to/your/ionic/project"
   }
   ```
+
 - **Add a native platform:**
+
   ```json
   {
     "platform": "ios",
     "appRoot": "/absolute/path/to/your/ionic/project"
   }
   ```
+
 - **Build your app:**
+
   ```json
   {
     "appRoot": "/absolute/path/to/your/ionic/project",
     "engine": "browser"
   }
   ```
+
 - **Serve your app:**
+
   ```json
   {
     "appRoot": "/absolute/path/to/your/ionic/project",
@@ -113,9 +124,9 @@ If you want to test or develop this server locally, you need to point your MCP s
 
 ```json
 {
-  "angular-cli": {
+  "ionic-cli": {
     "command": "node",
-    "args": ["/path/to/your/mcp-angular-cli/dist/index.js"]
+    "args": ["/path/to/your/mcp-ionic-cli/dist/index.js"]
   }
 }
 ```
