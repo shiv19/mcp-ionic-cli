@@ -1,5 +1,5 @@
 {
-  "name": "@shiv19/mcp-ionic-cli",
+  "name": "mcp-ionic-cli",
   "version": "1.0.0",
   "description": "Model Context Protocol server for Ionic CLI",
   "license": "MIT",

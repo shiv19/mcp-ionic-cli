@@ -20,13 +20,13 @@ A Model Context Protocol server that provides Ionic CLI automation capabilities.
 You can install the package globally using npm:
 
 ```bash
-npm install -g @shiv19/mcp-ionic-cli
+npm install -g mcp-ionic-cli
 ```
 
 Or use it locally in your project:
 
 ```bash
-npm install --save-dev @shiv19/mcp-ionic-cli
+npm install --save-dev mcp-ionic-cli
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ npm install --save-dev @shiv19/mcp-ionic-cli
 You can run the server directly:
 
 ```bash
-npx @shiv19/mcp-ionic-cli
+npx mcp-ionic-cli
 ```
 
 Or, if you want to use it as a custom MCP server in your agent or tool, configure it like this:
@@ -46,7 +46,7 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
   "mcpServers": {
     "ionic-cli": {
       "command": "npx",
-      "args": ["-y", "@shiv19/mcp-ionic-cli"]
+      "args": ["-y", "mcp-ionic-cli"]
     }
   }
 }

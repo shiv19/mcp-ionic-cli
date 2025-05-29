@@ -2,7 +2,7 @@
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": ["-y", "@shiv19/mcp-ionic-cli"]
+      "args": ["-y", "mcp-ionic-cli"]
     }
   }
 }
