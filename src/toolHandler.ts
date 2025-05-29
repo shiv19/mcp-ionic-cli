@@ -14,7 +14,7 @@ export async function handleToolCall(
     switch (name) {
       case "ionic_generate": {
         command = "ionic";
-        commandArgs = ["generate", args.type, args.name];
+        commandArgs = ["generate", args.schematic, args.name];
         if (args.options) {
           for (const [key, value] of Object.entries(args.options)) {
             if (typeof value === "boolean" && value) {

@@ -5,18 +5,17 @@ export function createToolDefinitions() {
     {
       name: "ionic_generate",
       description:
-        "Run 'ionic generate' to create pages, components, services, and other Ionic/Angular features",
+        "Create Pages, Components, & Angular Features. Automatically create framework features with Ionic Generate using the Angular CLI to generate features such as pages, components, directives, services, and more.",
       inputSchema: {
         type: "object",
         properties: {
-          type: {
+          schematic: {
             type: "string",
-            description: "The type of artifact to generate (e.g., page, component, service, guard, pipe)",
-            enum: ["page", "component", "service", "guard", "pipe", "directive", "class", "interface", "enum"],
+            description: "The type of feature (e.g. page, component, directive, service). For a full list of available types, use npx ng g --help",
           },
           name: {
             type: "string",
-            description: "The name of the artifact to generate",
+            description: "The name/path of the feature being generated. You can specify a path to nest your feature within subdirectories (e.g. 'pages/New Page' generates at src/app/pages/new-page/)",
           },
           appRoot: {
             type: "string",
@@ -25,36 +24,27 @@ export function createToolDefinitions() {
           },
           options: {
             type: "object",
-            description: "Additional options for the generator",
+            description: "Additional Angular CLI generator options (varies by schematic type)",
             properties: {
               "dry-run": {
                 type: "boolean",
-                description: "Run through and report activity without writing out results",
+                description: "Test a generator before file modifications are made",
                 default: false,
               },
-              force: {
-                type: "boolean",
-                description: "Force overwriting of existing files",
-                default: false,
-              },
-              "skip-tests": {
-                type: "boolean",
-                description: "Do not create spec files",
-                default: false,
-              },
-              module: {
+              "change-detection": {
                 type: "string",
-                description: "The declaring NgModule",
+                description: "The change detection strategy to use in the new component (OnPush, Default)",
               },
-              path: {
-                type: "string",
-                description: "The path at which to create the files, relative to the current workspace",
+              "skip-import": {
+                type: "boolean",
+                description: "Do not import this component into the owning NgModule",
+                default: false,
               },
             },
-            additionalProperties: { type: "string" },
+            additionalProperties: true,
           },
         },
-        required: ["type", "name", "appRoot"],
+        required: ["schematic", "name", "appRoot"],
       },
     },
     {
