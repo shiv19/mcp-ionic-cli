@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ionic --help)",
+      "Bash(ionic start:*)",
+      "Bash(ionic generate:*)",
+      "Bash(ionic build:*)",
+      "Bash(ionic capacitor --help)",
+      "Bash(ionic capacitor add:*)",
+      "Bash(ionic serve:*)",
+      "Bash(ionic info:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false
+}

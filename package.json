@@ -1,15 +1,15 @@
 {
-  "name": "@talzach/mcp-angular-cli",
+  "name": "@shiv19/mcp-ionic-cli",
   "version": "1.0.0",
-  "description": "Model Context Protocol servers for Angular CLI",
+  "description": "Model Context Protocol server for Ionic CLI",
   "license": "MIT",
-  "author": "Tal Zach (https://github.com/talzach)",
-  "homepage": "https://talzach/mcp-angular-cli",
-  "bugs": "https://github.com/talzach/mcp-angular-cli/issues",
+  "author": "User",
+  "homepage": "https://github.com/shiv19/mcp-ionic-cli",
+  "bugs": "https://github.com/shiv19/mcp-ionic-cli/issues",
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "playwright-mcp-server": "dist/index.js"
+    "mcp-ionic-cli": "dist/index.js"
   },
   "files": [
     "dist"
@@ -22,15 +22,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/talzach/mcp-angular-cli.git"
+    "url": "https://github.com/shiv19/mcp-ionic-cli.git"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.1"
   },
   "keywords": [
-    "Angular CLI",
+    "Ionic CLI",
+    "Ionic Framework",
     "AI",
-    "Claude MCP"
+    "Claude MCP",
+    "Mobile Development"
   ],
   "devDependencies": {
     "@types/jest": "^29.5.14",

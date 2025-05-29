@@ -1,14 +1,15 @@
-# Angular CLI MCP Server 🅰️
+# Ionic CLI MCP Server ⚡
 
-A Model Context Protocol server that provides Angular CLI and workspace automation capabilities. This server enables LLMs and agents to interact with Angular projects, generate components/services, add packages, create new workspaces, and run custom architect targets via the Angular CLI.
+A Model Context Protocol server that provides Ionic CLI automation capabilities. This server enables LLMs and agents to interact with Ionic projects, generate pages/components/services, add native platforms, build and serve apps, and manage Ionic projects via the Ionic CLI.
 
 ## Features
 
-- Run `ng generate` to scaffold Angular artifacts (components, services, etc.)
-- Run `ng add` to add packages to your Angular workspace
-- Run `ng new` to create new Angular workspaces
-- Run `ng run` to execute custom architect targets
-- Run `ng update` to update Angular packages and dependencies
+- Run `ionic start` to create new Ionic projects with various templates and frameworks
+- Run `ionic generate` to scaffold Ionic/Angular artifacts (pages, components, services, etc.)
+- Run `ionic capacitor add` to add native platforms (iOS, Android) to your project
+- Run `ionic build` to build your app for different platforms and engines
+- Run `ionic serve` to start a development server with live reload
+- Run `ionic info` to get project and environment information
 
 - All via the Model Context Protocol (MCP) for agent/LLM integration
 
@@ -17,13 +18,13 @@ A Model Context Protocol server that provides Angular CLI and workspace automati
 You can install the package globally using npm:
 
 ```bash
-npm install -g @talzach/mcp-angular-cli
+npm install -g @shiv19/mcp-ionic-cli
 ```
 
 Or use it locally in your project:
 
 ```bash
-npm install --save-dev @talzach/mcp-angular-cli
+npm install --save-dev @shiv19/mcp-ionic-cli
 ```
 
 ## Usage
@@ -31,7 +32,7 @@ npm install --save-dev @talzach/mcp-angular-cli
 You can run the server directly:
 
 ```bash
-npx @talzach/mcp-angular-cli
+npx @shiv19/mcp-ionic-cli
 ```
 
 Or, if you want to use it as a custom MCP server in your agent or tool, configure it like this:
@@ -41,9 +42,9 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
 ```json
 {
   "mcpServers": {
-    "angular-cli": {
+    "ionic-cli": {
       "command": "npx",
-      "args": ["-y", "@talzach/mcp-angular-cli"]
+      "args": ["-y", "@shiv19/mcp-ionic-cli"]
     }
   }
 }
@@ -51,33 +52,44 @@ Or, if you want to use it as a custom MCP server in your agent or tool, configur
 
 ## Example Tool Usage
 
-- **Generate a component:**
+- **Create a new Ionic project:**
   ```json
   {
-    "schematic": "component",
-    "name": "my-component",
-    "appRoot": "/absolute/path/to/your/angular/project"
-  }
-  ```
-- **Add a package:**
-  ```json
-  {
-    "package": "@angular/material",
-    "appRoot": "/absolute/path/to/your/angular/project"
-  }
-  ```
-- **Create a new workspace:**
-  ```json
-  {
-    "name": "my-workspace",
+    "name": "my-ionic-app",
+    "template": "tabs",
+    "type": "angular",
+    "capacitor": true,
     "directory": "/absolute/path/to/where/you/want/it"
   }
   ```
-- **Run a custom architect target:**
+- **Generate a page:**
   ```json
   {
-    "target": "app:build:production",
-    "appRoot": "/absolute/path/to/your/angular/project"
+    "type": "page",
+    "name": "home",
+    "appRoot": "/absolute/path/to/your/ionic/project"
+  }
+  ```
+- **Add a native platform:**
+  ```json
+  {
+    "platform": "ios",
+    "appRoot": "/absolute/path/to/your/ionic/project"
+  }
+  ```
+- **Build your app:**
+  ```json
+  {
+    "appRoot": "/absolute/path/to/your/ionic/project",
+    "engine": "browser"
+  }
+  ```
+- **Serve your app:**
+  ```json
+  {
+    "appRoot": "/absolute/path/to/your/ionic/project",
+    "port": 8100,
+    "external": true
   }
   ```
 

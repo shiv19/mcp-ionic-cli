@@ -3,116 +3,146 @@ import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 export function createToolDefinitions() {
   return [
     {
-      name: "ng_generate",
+      name: "ionic_generate",
       description:
-        "Run 'ng generate' to create a new Angular artifact (component, service, etc.)",
+        "Run 'ionic generate' to create pages, components, services, and other Ionic/Angular features",
       inputSchema: {
         type: "object",
         properties: {
-          schematic: {
+          type: {
             type: "string",
-            description: "The schematic to generate (e.g., component, service)",
+            description: "The type of artifact to generate (e.g., page, component, service, guard, pipe)",
+            enum: ["page", "component", "service", "guard", "pipe", "directive", "class", "interface", "enum"],
           },
           name: {
             type: "string",
             description: "The name of the artifact to generate",
           },
-          path: {
-            type: "string",
-            description:
-              "The path where the artifact should be created, relative to the appRoot (do not include the app folder itself). For example, if the full path is 'webui/src/app/modules/alerts' and appRoot is 'webui', then path should be 'src/app/modules/alerts'.",
-            default: "src/app",
-          },
           appRoot: {
             type: "string",
             description:
-              "The absolute path to the first folder in the 'path' property. For example, if 'path' is 'webui/src/app/modules/alerts', then 'appRoot' should be the absolute path to 'webui'.",
+              "The absolute path to the Ionic project root directory",
           },
           options: {
             type: "object",
-            description: "Additional options for the schematic",
+            description: "Additional options for the generator",
             properties: {
-              defaults: {
+              "dry-run": {
                 type: "boolean",
-                description:
-                  "Disable interactive input prompts for options with a default.",
-                default: false,
-              },
-              dryRun: {
-                type: "boolean",
-                description:
-                  "Run through and report activity without writing out results.",
+                description: "Run through and report activity without writing out results",
                 default: false,
               },
               force: {
                 type: "boolean",
-                description: "Force overwriting of existing files.",
+                description: "Force overwriting of existing files",
                 default: false,
               },
-              help: {
+              "skip-tests": {
                 type: "boolean",
-                description:
-                  "Shows a help message for this command in the console.",
+                description: "Do not create spec files",
                 default: false,
               },
-              interactive: {
-                type: "boolean",
-                description: "Enable interactive input prompts.",
-                default: true,
+              module: {
+                type: "string",
+                description: "The declaring NgModule",
+              },
+              path: {
+                type: "string",
+                description: "The path at which to create the files, relative to the current workspace",
               },
             },
             additionalProperties: { type: "string" },
           },
         },
-        required: ["schematic", "name", "appRoot"],
+        required: ["type", "name", "appRoot"],
       },
     },
     {
-      name: "ng_add",
-      description: "Run 'ng add' to add a package to the Angular workspace",
+      name: "ionic_capacitor_add",
+      description: "Add a native platform to your Ionic project using Capacitor",
       inputSchema: {
         type: "object",
         properties: {
-          package: {
+          platform: {
             type: "string",
-            description: "The npm package to add (e.g., @angular/material)",
+            description: "The platform to add (e.g. android, ios)",
+            enum: ["android", "ios"],
           },
           appRoot: {
             type: "string",
             description:
-              "The absolute path to the first folder in the 'path' property. For example, if 'path' is 'webui/src/app/modules/alerts', then 'appRoot' should be the absolute path to 'webui'.",
-          },
-          options: {
-            type: "object",
-            description: "Additional options for ng add",
-            additionalProperties: { type: "string" },
+              "The absolute path to the Ionic project root directory",
           },
         },
-        required: ["package", "appRoot"],
+        required: ["platform", "appRoot"],
       },
     },
     {
-      name: "ng_new",
-      description: "Run 'ng new' to create a new Angular workspace",
+      name: "ionic_start",
+      description: "Run 'ionic start' to create a new Ionic project",
       inputSchema: {
         type: "object",
         properties: {
           name: {
             type: "string",
-            description: "The name of the new workspace",
+            description: "The name of your new project (e.g. myApp, 'My App')",
+          },
+          template: {
+            type: "string",
+            description: "The starter template to use (e.g. blank, tabs, sidemenu). Use 'list' to see all templates",
+            default: "blank",
           },
           directory: {
             type: "string",
-            description: "The directory to create the workspace in",
+            description: "The directory to create the project in",
           },
-          appRoot: {
+          type: {
             type: "string",
-            description:
-              "The absolute path to the first folder in the 'path' property. For example, if 'path' is 'webui/src/app/modules/alerts', then 'appRoot' should be the absolute path to 'webui'.",
+            description: "Type of project to start (e.g. vue, angular, angular-standalone, react)",
+            enum: ["angular", "angular-standalone", "react", "vue"],
+          },
+          capacitor: {
+            type: "boolean",
+            description: "Include Capacitor integration",
+            default: true,
+          },
+          cordova: {
+            type: "boolean",
+            description: "(deprecated) Include Cordova integration",
+            default: false,
           },
           options: {
             type: "object",
-            description: "Additional options for ng new",
+            description: "Additional options for ionic start",
+            properties: {
+              "no-deps": {
+                type: "boolean",
+                description: "Do not install npm/yarn dependencies",
+                default: false,
+              },
+              "no-git": {
+                type: "boolean",
+                description: "Do not initialize a git repo",
+                default: false,
+              },
+              "link": {
+                type: "boolean",
+                description: "Connect your new app to Ionic",
+                default: false,
+              },
+              "project-id": {
+                type: "string",
+                description: "Specify a slug for your app (used for the directory name and package name)",
+              },
+              "package-id": {
+                type: "string",
+                description: "Specify the bundle ID/application ID for your app (reverse-DNS notation)",
+              },
+              "id": {
+                type: "string",
+                description: "Specify an Ionic App ID to link",
+              },
+            },
             additionalProperties: { type: "string" },
           },
         },
@@ -120,106 +150,92 @@ export function createToolDefinitions() {
       },
     },
     {
-      name: "ng_run",
-      description: "Run 'ng run' to execute a custom architect target",
+      name: "ionic_build",
+      description: "Build web assets and prepare your app for any platform targets",
       inputSchema: {
         type: "object",
         properties: {
-          target: {
-            type: "string",
-            description: "The target to run (e.g., app:build:production)",
-          },
           appRoot: {
             type: "string",
             description:
-              "The absolute path to the first folder in the 'path' property. For example, if 'path' is 'webui/src/app/modules/alerts', then 'appRoot' should be the absolute path to 'webui'.",
+              "The absolute path to the Ionic project root directory",
           },
-          options: {
-            type: "object",
-            description: "Additional options for ng run",
-            additionalProperties: { type: "string" },
+          engine: {
+            type: "string",
+            description: "Target engine (e.g. browser, cordova)",
+            enum: ["browser", "cordova"],
+          },
+          platform: {
+            type: "string",
+            description: "Target platform on chosen engine (e.g. ios, android)",
+            enum: ["ios", "android"],
           },
         },
-        required: ["target", "appRoot"],
+        required: ["appRoot"],
       },
     },
     {
-      name: "ng_update",
-      description:
-        "Run 'ng update' to update Angular packages and run migrations.",
+      name: "ionic_serve",
+      description: "Start a local dev server for app dev/testing",
       inputSchema: {
         type: "object",
         properties: {
-          packages: {
-            oneOf: [
-              {
-                type: "string",
-                description:
-                  "The name of the package to update (e.g., @angular/core)",
-              },
-              {
-                type: "array",
-                items: { type: "string" },
-                description: "The names of packages to update.",
-              },
-            ],
-          },
           appRoot: {
             type: "string",
             description:
-              "The absolute path to the first folder in the 'path' property. For example, if 'path' is 'webui/src/app/modules/alerts', then 'appRoot' should be the absolute path to 'webui'.",
+              "The absolute path to the Ionic project root directory",
           },
-          next: {
+          external: {
             type: "boolean",
-            description: "Use the prerelease version, including beta and RCs.",
+            description: "Host dev server on all network interfaces (i.e. --host=0.0.0.0)",
             default: false,
           },
-          force: {
-            type: "boolean",
-            description: "Ignore peer dependency version mismatches.",
-            default: false,
+          host: {
+            type: "string",
+            description: "Use specific host for the dev server (default: localhost)",
+            default: "localhost",
           },
-          allowDirty: {
-            type: "boolean",
-            description:
-              "Allow updating when the repository contains modified or untracked files.",
-            default: false,
+          port: {
+            type: "number",
+            description: "Use specific port for the dev server (default: 8100)",
+            default: 8100,
           },
-          createCommits: {
+          livereload: {
             type: "boolean",
-            description:
-              "Create source control commits for updates and migrations.",
-            default: false,
+            description: "Enable live reload functionality",
+            default: true,
           },
-          from: {
+          open: {
+            type: "boolean", 
+            description: "Open a browser window",
+            default: true,
+          },
+          browser: {
+            type: "string",
+            description: "Specifies the browser to use (safari, firefox, google chrome)",
+          },
+        },
+        required: ["appRoot"],
+      },
+    },
+    {
+      name: "ionic_info",
+      description: "Print project, system, and environment information",
+      inputSchema: {
+        type: "object",
+        properties: {
+          appRoot: {
             type: "string",
             description:
-              "Version from which to migrate from (only with migrate-only and single package).",
+              "The absolute path to the Ionic project root directory (optional - can be run globally)",
           },
-          to: {
-            type: "string",
-            description:
-              "Version up to which to apply migrations (only with migrate-only and single package).",
-          },
-          migrateOnly: {
+          json: {
             type: "boolean",
-            description:
-              "Only perform a migration, do not update the installed version.",
-            default: false,
-          },
-          name: {
-            type: "string",
-            description:
-              "The name of the migration to run (only with migrate-only and single package).",
-          },
-          verbose: {
-            type: "boolean",
-            description:
-              "Display additional details about internal operations during execution.",
+            description: "Print system/environment info in JSON format",
             default: false,
           },
         },
-        required: ["packages", "appRoot"],
+        required: [],
       },
     },
   ] as const satisfies Tool[];
